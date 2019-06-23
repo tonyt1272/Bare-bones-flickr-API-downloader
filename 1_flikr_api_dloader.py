@@ -9,12 +9,7 @@ secret = 'xxxxxxxxxxxxxxxx'
 
 Flickr.set_keys(api_key,secret)
 
-
-
-
-
 url = ''
-
 response = requests.get(url)
 print(type(response))
 print(response)
@@ -33,7 +28,7 @@ pic_id = photo['id']
 pic = Flickr.Photo(id=pic_id)
 pSizes = pic.getSizes()
 lprint(json.dumps(pSizes, indent=4, sort_keys=True))
-lprint(pSizes['Site MP4']['url'])
+#lprint(pSizes['Site MP4']['url'])
 count=0
 for photo in photos:
     ext = str(count)
@@ -42,18 +37,20 @@ for photo in photos:
     pic_id = photo['id']
     pic = Flickr.Photo(id=pic_id)
     pSizes = pic.getSizes()
-    print(pSizes['Site MP4']['url'])#####################
+    #print(pSizes['Site MP4']['url'])#####################
     if "Large" in pSizes:
         try:
-          pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Large")  #
-          print('Large jpg Sucess!!!!!')
+            pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Large")  #Data path is from my own
+                                                                                        #utilities library Space.space
+                                                                                        #it points to my data folder
+            print('Large jpg Sucess!!!!!')
         except:
 
             pass
     elif "Medium" in pSizes:
         try:
-          pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Medium")  # 'HD MP4'
-          print('Medium jpg Sucess!!!!!')
+            pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Medium")  #
+            print('Medium jpg Sucess!!!!!')
         except:
 
             pass
