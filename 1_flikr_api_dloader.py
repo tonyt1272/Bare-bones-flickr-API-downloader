@@ -5,13 +5,12 @@ import json
 
 #https://www.flickr.com/services/api/explore/flickr.photos.search# to get url, or use methods
 
-api_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-secret = 'xxxxxxxxxxxxxxxx'
+api_key = 'xxxxxxxxxxxxxxxxxxx'
+secret = 'xxxxxxxxxxxxxxxxx'
 
 Flickr.set_keys(api_key,secret)
 
-url = ''
-
+url = 'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key={}=cairo&media=videos&per_page=500&format=json&nojsoncallback=1'.format(api_key)
 response = requests.get(url)
 data = response.json()
 photos = data['photos']['photo']
@@ -37,23 +36,24 @@ for photo in photos:
     pic_id = photo['id']
     pic = Flickr.Photo(id=pic_id)
     pSizes = pic.getSizes()
-    #print(pSizes['Site MP4']['url'])#####################
-    if "Large" in pSizes:
-        try:
-            pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Large")  #Data path is from my own
-                                                                                        #utilities library Space.space
-                                                                                        #it points to my data folder
-            print('Large jpg Sucess!!!!!')
-        except:
-
-            pass
-    elif "Medium" in pSizes:
-        try:
-            pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Medium")  #
-            print('Medium jpg Sucess!!!!!')
-        except:
-
-            pass
-    else:
-        print('FAIL!!!!!')
-        continue
+    if 'Site MP4' in pSizes:
+        print(pSizes['Site MP4']['url'])#####################
+    # if "Large" in pSizes:
+    #     try:
+    #         pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Large")  #Data path is from my own
+    #                                                                                     #utilities library Space.space
+    #                                                                                     #it points to my data folder
+    #         print('Large jpg Sucess!!!!!')
+    #     except:
+    #
+    #         pass
+    # elif "Medium" in pSizes:
+    #     try:
+    #         pic.save(data_path('chihuahuas\\chihuahua{}'.format(ext)), size_label="Medium")  #
+    #         print('Medium jpg Sucess!!!!!')
+    #     except:
+    #
+    #         pass
+    # else:
+    #     print('FAIL!!!!!')
+    #     continue
